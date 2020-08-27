@@ -1,4 +1,4 @@
-#Εισαγωγή πακέτων
+#Import Packages
 import selenium
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -10,20 +10,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-#Είσοδος σε ιστοσελίδα
-PATH= "C:\Program Files (x86)\chromedriver.exe"
+#entering the website
+#In  order for the Selenium Package to work the chromedriver must be installed"
+PATH= "Define working directory\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 driver.get('http://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/advsearch.html')
 
 
-#Εύρεση Ρημάτων
+#Finding The Greek Verbs
 select = Select(driver.find_element_by_id("lemma_type"))
-select.select_by_visible_text("Ρήμα")
+select.select_by_visible_text("Ρήμα") #Ρήμα is the greek word for "Verb"
 search=driver.find_element_by_name("alq")
 search.send_keys(Keys.RETURN)
 
 
-#Scraping Περιεχομένου
+#Scraping Lexical Items
 data=[]
 def scrape():
     content = driver.find_element_by_id("content")
@@ -33,7 +34,7 @@ def scrape():
             words = definition.find_element_by_tag_name("b").text
             data.append(words)
 
-#προσπέλαση σελίδας
+#Webpage changing and saving content
 while True:
     try:
         element = WebDriverWait (driver, 10).until (EC.presence_of_element_located ((By.CLASS_NAME, 'next_page')))
@@ -41,36 +42,34 @@ while True:
         element.click()
     except TimeoutException:
         break
-    finally :
-        driver.close ()
-
+ 
 print(data)
-#προσωρινή αποθήκευση λίστας
+#Temporary save
 import pickle
 with open ('words_data.txt', 'rb') as fp:
     data = pickle.load(fp)
 
-#export σε excel και manual έλεχγος δεδομένων
+#export in xlsx format και manual data cleansing
 import pandas as pd
 df = pd.DataFrame(data)
 writer = pd.ExcelWriter('test.xlsx', engine='xlsxwriter')
 df.to_excel(writer, sheet_name='welcome', index=False)
 writer.save()
 
-#import δεδομένων
+#import data
 import pandas as pd
 import xlrd
 refined_data = pd.read_excel(r"C:\Users\panos\PycharmProjects\untitled\refined_data.xlsx", header=None)
 refined_datalist= list(refined_data[0])
 
-#συνάρτηση για εύρεσης χαρακτήρα
+#Define character function
 def char(word):
-    return{"χαρακτήρας": word[-2]}
+    return{"χαρακτήρας": word[-2]} #χαρακτήρας is the greek word for "character"
 
 from tqdm import tqdm
 from time import sleep
 
-#Δημιουργία λίστας πρώτης και δεύτερης συζυγίας
+#Writing word lists according to conjugation
 a_conj = []
 b_conj = []
 for word in tqdm(refined_datalist):
@@ -79,10 +78,10 @@ for word in tqdm(refined_datalist):
     elif word[-1] == "ώ":
         b_conj.append(word)
 
-#Ένωση της λίστας της πρώτης συζυγίας με την αντίστοιχη της δεύτερης μαζί με το tag τους
+#Concatenation of the two lists along with their conjugation tags
 tagged_list = ([(words,"πρώτη συζυγία")for words in a_conj]+[(words,"δεύτερη συζυγία") for words in b_conj])
 
-#Shuffle και εισαγωγή feature χαρακτήρα
+#Shuffle and character feature
 import random
 random.shuffle(tagged_list)
 char_list = [(char(v), conj) for (v, conj) in tagged_list]
