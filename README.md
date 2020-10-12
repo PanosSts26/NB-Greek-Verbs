@@ -62,6 +62,10 @@ while True:
         break
 ```
 The data was saved and cleansed in an `xlsx file`.
+```
+pip install pandas
+pip install xlrd
+```
 ```python
 #export in xlsx format και manual data cleansing
 import pandas as pd
@@ -106,6 +110,7 @@ classifier.show_most_informative_features(10)
 classifier.classify((char(refined_datalist[18])))
 print(nltk.classify.accuracy(classifier, test_set))
 ```
+The results were the following
 ```
 Most Informative Features
               χαρακτήρας = 'ζ'            πρώτη  : δεύτερ =     48.9 : 1.0
