@@ -106,7 +106,7 @@ classifier.show_most_informative_features(10)
 classifier.classify((char(refined_datalist[18])))
 print(nltk.classify.accuracy(classifier, test_set))
 ```
-
+```
 Most Informative Features
               χαρακτήρας = 'ζ'            πρώτη  : δεύτερ =     48.9 : 1.0
               χαρακτήρας = 'μ'            δεύτερ : πρώτη  =     42.5 : 1.0
@@ -118,4 +118,4 @@ Most Informative Features
               χαρακτήρας = 'φ'            δεύτερ : πρώτη  =      4.1 : 1.0
               χαρακτήρας = 'κ'            δεύτερ : πρώτη  =      3.3 : 1.0
               χαρακτήρας = 'δ'            δεύτερ : πρώτη  =      3.0 : 1.0
-
+```
