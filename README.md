@@ -44,6 +44,9 @@ def scrape():
     content = driver.find_element_by_id("content")
     lemmas = content.find_element_by_id("lemmas")
     definitions= lemmas.find_elements_by_tag_name("dt")
+    
+    
+    
         for definition in definitions:
             words = definition.find_element_by_tag_name("b").text
             data.append(words)
@@ -104,5 +107,15 @@ classifier.classify((char(refined_datalist[18])))
 print(nltk.classify.accuracy(classifier, test_set))
 ```
 
-
+Most Informative Features
+              χαρακτήρας = 'ζ'            πρώτη  : δεύτερ =     48.9 : 1.0
+              χαρακτήρας = 'μ'            δεύτερ : πρώτη  =     42.5 : 1.0
+              χαρακτήρας = 'λ'            δεύτερ : πρώτη  =      7.8 : 1.0
+              χαρακτήρας = 'γ'            δεύτερ : πρώτη  =      7.1 : 1.0
+              χαρακτήρας = 'τ'            δεύτερ : πρώτη  =      6.4 : 1.0
+              χαρακτήρας = 'θ'            δεύτερ : πρώτη  =      4.9 : 1.0
+              χαρακτήρας = 'π'            δεύτερ : πρώτη  =      4.9 : 1.0
+              χαρακτήρας = 'φ'            δεύτερ : πρώτη  =      4.1 : 1.0
+              χαρακτήρας = 'κ'            δεύτερ : πρώτη  =      3.3 : 1.0
+              χαρακτήρας = 'δ'            δεύτερ : πρώτη  =      3.0 : 1.0
 
