@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 #entering the website
-#In  order for the Selenium Package to work the chromedriver must be installed"
+#In  order for the Selenium Package to work chromedriver must be installed"
 PATH= "Define working directory\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 driver.get('http://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/advsearch.html')
