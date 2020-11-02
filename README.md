@@ -1,12 +1,10 @@
-# NB-Greek-Verbs
-A *Naive Bayes classifier* about the Verbs of the Greek Language.
+# Naive Bayes Classifer about the Greek Verbs
+This project a *Naive Bayes classifier* about the Verbs of the Greek Language. A word list was scraped in orded to be used as data for the classifier. The words consist of the entirety of the Verbs of the Greek Language taken from the Portal of the Greek Language Website which incorporates an online dictionary. The data then was divided into two lists according to the conjugation of the verbs. The conjugation of Greek Verbs is determined by whether or not the last letter is stressed or not. The second feature used for the classifier was the character of those verbs
+The Naive Bayes classifier was created from the `Nltk` **Python** Package.
 
- The conjugation of Greek Verbs is determined by whether or not the last letter is stressed or not.
-For this project a Naive Bayes classifier was created from the `Nltk` **Python** Package.
-A word list was scraped in orded to be used as data for the classifier.
 
 ## Dependencies
-Since we are making a Feature Classifier for verbs we should use the *Natural Language Toolkit* package since it incorporates a Naive Bayes classifier 
+Since we are making a Feature Classifier for verbs we should use the *Natural Language Toolkit* package since it incorporates a Naive Bayes classifier as well as tools to assess the classifier and its results
 ```
 pip install nltk
 ```
