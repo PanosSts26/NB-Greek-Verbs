@@ -1,11 +1,12 @@
 # NB-Greek-Verbs
 A *Naive Bayes classifier* about the Verbs of the Greek Language.
 
+ The conjugation of Greek Verbs is determined by whether or not the last letter is stressed or not.
 For this project a Naive Bayes classifier was created from the `Nltk` **Python** Package.
-
 A word list was scraped in orded to be used as data for the classifier.
+
 ## Dependencies
-Since we are Feature Classifier
+Since we are making a Feature Classifier for verbs we should use the *Natural Language Toolkit* package since it incorporates a Naive Bayes classifier 
 ```
 pip install nltk
 ```
@@ -21,19 +22,7 @@ pip install xlrd
 ```
 ## Scraping
 
-Using this package we can create a bot that opens a browser, enters the Portal of Greek Language website and searches all the *Greek Verbs* saving only the lexical items in a word list. 
-
-#In  order for the Selenium Package to work chromedriver must be installed"
-PATH= "Define working directory\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
-driver.get('http://www.greek-language.gr/greekLang/modern_greek/tools/lexica/triantafyllides/advsearch.html')
-
-#Finding The Greek Verbs
-select = Select(driver.find_element_by_id("lemma_type"))
-select.select_by_visible_text("Ρήμα") #Ρήμα is the greek word for "Verb"
-search=driver.find_element_by_name("alq")
-search.send_keys(Keys.RETURN)
-```
+Using `Selenium` package we can create a bot that opens a browser, enters the Portal of Greek Language website and searches all the *Greek Verbs* saving only the lexical items in a word list. `Selenium` offers choices for accessing search bars, finding and saving the right elements of a webpage and clicking on certain buttons which is are all features needed for our project.
 
 In order for the bot to detect and scrape only the lemmas from the Greek dictionary the following function was created
 ```python
@@ -42,30 +31,19 @@ def scrape():
     content = driver.find_element_by_id("content")
     lemmas = content.find_element_by_id("lemmas")
     definitions= lemmas.find_elements_by_tag_name("dt")
-    
-    
-    
+   
         for definition in definitions:
             words = definition.find_element_by_tag_name("b").text
             data.append(words)
 ```
-Then we can incorporate the scrape function to a while loop 
-```python
-while True:
-    try:
-        element = WebDriverWait (driver, 10).until (EC.presence_of_element_located ((By.CLASS_NAME, 'next_page')))
-        scrape()
-        element.click()
-    except TimeoutException:
-        break
-```
+Then we can incorporate the *scrape* function to a while loop. This way the bot after scraping will press the *next page* button and scrape the word results from the Greek Lanugage Dictionary etc. 
 After the scraping was finished the word list was saved  in a `xlsx file` and then was cleansed.
 
 
 ## Classifier
 Then a function was defined that returned the character of the verbs. 
-The word list was divided in two parts according to the conjugation. The conjugation of Greek Verbs is determined by whether or not the last letter is stressed or not.
-The two word lists were then with a tag according to their conjugation and then randomized with the  `random` package. The data was then divided in a train and test set. Using the `nltk` package the Naives Bayes classifier was created with a 0.869 accuracy.
+The word list was divided in two parts according to the conjugation.
+The two word lists were then incorporated with a tag according to their conjugation and then randomized with the `random` package. The data was then divided in a train and test set. Using the `nltk` package the Naives Bayes classifier was created with a 0.869 accuracy.
 
 The results were the following
 ```
