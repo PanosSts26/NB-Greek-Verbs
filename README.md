@@ -6,12 +6,12 @@ For this project a Naive Bayes classifier was created from the `Nltk` **Python**
 A word list was scraped in orded to be used as data for the classifier.
 
 ## Scraping
-For this project The word list was taken from http://www.greek-language.gr/greekLang/index.html. 
+For this project the word list was taken from http://www.greek-language.gr/greekLang/index.html. 
 The `Selenium` package was used. 
 ```
 pip install selenium
 ```
-Using this package a bot was created that opened a browser, entered the Portal of Greek Language website searched all the *Greek Verbs* and saved only the lexical items in a word list. 
+Using this package we can create a bot that opens a browser, enters the Portal of Greek Language website and searches all the *Greek Verbs* saving only the lexical items in a word list. 
 ```python
 import selenium
 from selenium import webdriver
@@ -37,7 +37,7 @@ search=driver.find_element_by_name("alq")
 search.send_keys(Keys.RETURN)
 ```
 
-In order for the bot to detect and scrape only the lemmas from the Greek dictionary the following function was created,
+In order for the bot to detect and scrape only the lemmas from the Greek dictionary the following function was created
 ```python
 data=[]
 def scrape():
@@ -51,7 +51,7 @@ def scrape():
             words = definition.find_element_by_tag_name("b").text
             data.append(words)
 ```
-Then 
+Then we can incorporate the scrape function to a while loop 
 ```python
 while True:
     try:
@@ -61,7 +61,7 @@ while True:
     except TimeoutException:
         break
 ```
-The data was saved and cleansed in an `xlsx file`.
+After the scraping was finished the word list was saved  in a `xlsx file` and then was cleansed.
 ```
 pip install pandas
 pip install xlrd
